@@ -6,7 +6,7 @@ async function bootstrap() {
   const { port } = config.server;
 
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
   app.setGlobalPrefix('ms-file');
 
   await app.listen(port);
