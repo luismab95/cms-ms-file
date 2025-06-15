@@ -7,5 +7,6 @@ export const config = {
     port: process.env.PORT,
     jwtSecretKey: process.env.JWT_SECRET_KEY,
     msCms: process.env.MS_CMS,
+    corsOrigin: process.env.CORS_ORIGIN,
   },
 };

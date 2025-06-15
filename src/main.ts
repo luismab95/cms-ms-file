@@ -3,10 +3,16 @@ import { AppModule } from './app.module';
 import { config } from './shared/environments/load-env';
 
 async function bootstrap() {
-  const { port } = config.server;
+  const { port, corsOrigin } = config.server;
 
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+
+  app.enableCors({
+    origin: corsOrigin,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: false,
+  });
+
   app.setGlobalPrefix('ms-file');
 
   await app.listen(port);
