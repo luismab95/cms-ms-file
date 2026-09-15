@@ -7,6 +7,7 @@ import {
   HttpException,
   UseGuards,
   Headers,
+  Body,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { extname } from 'path';
@@ -45,6 +46,7 @@ export class FileController {
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Headers() headers: any,
+    @Body() param: { saveInfo: string },
   ): Promise<ServiceResponseInterface<FileI>> {
     const token = headers['authorization'];
 
@@ -52,7 +54,8 @@ export class FileController {
       throw new HttpException('Archivo es requerido', HttpStatus.BAD_REQUEST);
     }
 
-    await this.filesService.saveInfoFile(file, token);
+    if (param.saveInfo === 'true')
+      await this.filesService.saveInfoFile(file, token);
     return {
       message: file,
       statusCode: HttpStatus.OK,
