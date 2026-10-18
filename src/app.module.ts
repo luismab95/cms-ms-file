@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { join } from 'node:path';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { FileModule } from './modules/file/file.module.js';
@@ -9,7 +9,7 @@ import { FileModule } from './modules/file/file.module.js';
   imports: [
     FileModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
+      rootPath: join(import.meta.dirname, '..', 'uploads'),
       serveRoot: '/ms-file/uploads',
     }),
   ],
